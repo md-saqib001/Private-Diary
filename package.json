@@ -1,0 +1,31 @@
+{
+  "name": "private-diary",
+  "version": "1.0.0",
+  "description": "A secure full-stack application to store your diary in private.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/md-saqib001/Private-Diary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/md-saqib001/Private-Diary/issues"
+  },
+  "homepage": "https://github.com/md-saqib001/Private-Diary#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-sqlite3": "^0.9.16",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "zod": "^4.3.6"
+  }
+}
