@@ -6,21 +6,21 @@ async function logTables() {
         db = await openDB();
 
         // Retrieve and log all entries from users tables
-        const usersTable=await db.all('SELECT * FROM users;');
-        console.log("📋 Users Table:")
+        const usersTable=await db.all('SELECT * FROM users');
+        console.log(`\n👥 USERS TABLE (${usersTable.length} found):`);
         console.table(usersTable);
         
 
         // Retrieve and log all entries from notes tables
-        const notesTable=await db.all('SELECT * FROM notes;');
-        console.log("📋 Notes Table:");
+        const notesTable=await db.all('SELECT * FROM notes');
+        console.log(`\n📝 NOTES TABLE (${notesTable.length} found):`);
         console.table(notesTable);
     }
     catch (error) {
         console.error("Error retrieving links:", error);
     }
     finally {
-        await db.close();
+        if(db) await db.close();
     }
 }
 

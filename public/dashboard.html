@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowPen - Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Extra styles just for the dashboard */
+        .dashboard-container { width: 800px; max-width: 90%; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .note-card { background: #161b22; padding: 15px; margin-bottom: 10px; border-left: 4px solid #238636; border-radius: 4px; }
+        .note-date { font-size: 0.8em; color: #8b949e; }
+        #logoutBtn { background-color: #da3633; width: auto; padding: 5px 15px; }
+        #logoutBtn:hover { background-color: #b62324; }
+    </style>
+</head>
+<body>
+
+<div class="container dashboard-container">
+    <div class="header">
+        <h2>📂 Classified Notes</h2>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+    <div style="margin-bottom: 30px; border-bottom: 1px solid #30363d; padding-bottom: 20px;">
+        <input type="text" id="noteTitle" placeholder="Subject / Title">
+        <textarea id="noteContent" rows="3" placeholder="Write your encrypted entry here..."></textarea>
+        <button id="saveNoteBtn">Save Entry</button>
+    </div>
+
+    <div id="notesList">
+        <p style="text-align: center; color: #8b949e;">Loading secure data...</p>
+    </div>
+</div>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>

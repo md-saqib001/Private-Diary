@@ -39,7 +39,7 @@ const createTables = async () => {
         console.error("❌ Error creating tables:", error);
     }
     finally {
-        if(db?.close()) await db.close();
+        if(db) await db.close();
     }
 }
 
