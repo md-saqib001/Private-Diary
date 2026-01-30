@@ -4,7 +4,11 @@
   "description": "A secure full-stack application to store your diary in private.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "node --watch --env-file=.env src/server.js",
+    "db:create": "node src/scripts/createDB.js",
+    "db:seed": "node src/scripts/seedDB.js",
+    "db:log": "node src/scripts/logDB.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +17,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
+  "imports": {
+    "#config/*": "./src/config/*",
+    "#data/*": "./data/*",
+    "#controllers/*": "./src/controllers/*",
+    "#routes/*": "./src/routes/*",
+    "#scripts/*": "./src/scripts/*",
+    "#middleware/*": "./src/middleware/*"
+  },
   "bugs": {
     "url": "https://github.com/md-saqib001/Private-Diary/issues"
   },
