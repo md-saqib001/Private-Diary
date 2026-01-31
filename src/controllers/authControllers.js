@@ -95,3 +95,16 @@ export const logoutUser = (req, res) => {
         res.json({ message: "Logout successful" });
     });
 };
+
+// GET /api/auth/me (Who am I?)
+export const getMe = (req, res) => {
+    if (req.session.userId) {
+        // The session already stores the username! We just send it back.
+        res.json({ 
+            username: req.session.username,
+            email: req.session.email
+        });
+    } else {
+        res.status(401).json({ error: "Not authenticated" });
+    }
+};

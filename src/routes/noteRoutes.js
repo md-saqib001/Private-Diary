@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNote, getNotes } from '#controllers/noteControllers.js';
+import { getNotes, getNoteByDate, saveDailyPage } from '#controllers/noteControllers.js';
 import { isAuthenticated } from '#middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -7,10 +7,12 @@ const router = express.Router();
 // Apply isAuthenticated middleware to all note routes
 router.use(isAuthenticated);
 
-// Route to get all notes for the logged-in user
+// Route to get all notes for the logged-in user (year and month filters optional)
 router.get('/', getNotes);
 
+router.get('/:date', getNoteByDate);
+
 // Route to create a new note for the logged-in user
-router.post('/', createNote);
+router.post('/', saveDailyPage);
 
 export default router;
