@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowPen - Entry</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* IMMERSIVE WRITING STYLES */
+        body {
+            overflow-y: hidden; /* Prevent double scrollbars */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px; /* Optimal reading width */
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Top Bar */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 20px;
+        }
+        
+        .back-link { color: #8b949e; font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: 0.2s;}
+        .back-link:hover { color: #58a6ff; }
+
+        /* The "Paper" Elements */
+        #dateDisplay {
+            color: #238636;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Invisible Input styling */
+        input#entryTitle {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 2.5rem; /* Big Title */
+            font-weight: 700;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+        input#entryTitle::placeholder { color: #30363d; }
+
+        textarea#entryContent {
+            background: transparent;
+            border: none;
+            color: #c9d1d9;
+            font-size: 1.2rem; /* Comfortable reading size */
+            line-height: 1.8; /* Breathable spacing */
+            width: 100%;
+            flex-grow: 1; /* Take all remaining space */
+            resize: none;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            padding-bottom: 100px; /* Space for scrolling */
+        }
+        textarea#entryContent::placeholder { color: #30363d; font-style: italic; }
+
+        /* Floating Save Status/Button */
+        .status-bar {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #saveStatus { color: #8b949e; font-size: 0.9rem; font-style: italic; }
+
+        .save-btn {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: 0.2s;
+        }
+        .save-btn:hover { background-color: #2ea043; transform: scale(1.05); }
+        .save-btn:disabled { background-color: #30363d; cursor: not-allowed; opacity: 0.5; }
+
+        /* Read Only Mode Indicator */
+        .read-only-badge {
+            background: #30363d;
+            color: #8b949e;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="nav-bar">
+            <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+            <div id="readOnlyBadge" class="read-only-badge">🔒 READ ONLY (Past Entry)</div>
+        </div>
+
+        <span id="dateDisplay">Loading Date...</span>
+        
+        <input type="text" id="entryTitle" placeholder="Give this day a title..." autocomplete="off">
+
+        <textarea id="entryContent" placeholder="Start writing your thoughts..."></textarea>
+    </div>
+
+    <div class="status-bar">
+        <span id="saveStatus"></span>
+        <button id="saveBtn" class="save-btn">Save Entry</button>
+    </div>
+
+<script src="javascript/view.js"></script>
+
+</body>
+</html>

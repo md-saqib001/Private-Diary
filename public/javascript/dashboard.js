@@ -12,7 +12,7 @@ const filterBtn = document.getElementById('filterBtn');
 const yearFilter = document.getElementById('yearFilter');
 const monthFilter = document.getElementById('monthFilter');
 
-// 1. Calculate Today's Date (Local Time) 📅
+// Calculate Today's Date (Local Time)
 // We need YYYY-MM-DD to compare with DB, and DD-MM-YYYY to display.
 const now = new Date();
 const yyyy = now.getFullYear();
@@ -39,7 +39,7 @@ async function loadUserIdentity() {
     }
 }
 
-// Fetch and Sort Notes 🚀
+// 2. Fetch and Sort Notes
 async function loadDashboard() {
     // Get filters
     const year = yearFilter.value;
@@ -53,18 +53,34 @@ async function loadDashboard() {
 
     try {
         const res = await fetch(url);
+        
+        // Handle Logout
         if (res.status === 401) return window.location.href = 'login.html';
         
+        // Handle Server Errors (Like the 500 you just saw)
+        if (!res.ok) {
+            console.error("Server Error:", res.status);
+            notesList.innerHTML = '<p class="error">Server hiccup. Try restarting the backend.</p>';
+            return;
+        }
+
         const notes = await res.json();
+        
+        // Double check: Is 'notes' actually a list?
+        if (!Array.isArray(notes)) {
+            console.error("Expected array but got:", notes);
+            return;
+        }
         
         processNotes(notes);
 
     } catch (err) {
-        console.error("Error:", err);
+        console.error("Network Error:", err);
+        notesList.innerHTML = '<p class="error">Cannot reach server.</p>';
     }
 }
 
-// 3. Separate "Today" from "History" 🕵️‍♂️
+// Separate "Today" from "History" 
 function processNotes(notes) {
     // A. Handle Today's Section
     // Search for a note that matches todayISO
@@ -86,7 +102,7 @@ function processNotes(notes) {
     renderHistory(historyNotes);
 }
 
-// 4. Render the List 📜
+// Render the List 
 function renderHistory(notes) {
     if (notes.length === 0) {
         notesList.innerHTML = '<p style="text-align: center; color: #8b949e;">No past entries found.</p>';

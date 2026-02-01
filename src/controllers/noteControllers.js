@@ -20,19 +20,19 @@ export const getNotes = async (req, res) => {
         const userId=req.session.userId;
         const { month, year } = req.query;
 
-        let query=`SELECT * FROM note WHERE userId = ?`;
+        let query=`SELECT * FROM notes WHERE user_id = ?`;
         let params=[userId];
 
         if(year && month) {
-            query+=`AND date-id LIKE ?`;
-            query.push_back(`${year}-${month}%`);
+            query+=` AND date_id LIKE ?`;
+            params.push(`${year}-${month}%`);
         }
         else if(year) {
-            query+=` AND date-id LIKE ?`;
-            query.push_back(`${year}`);
+            query+=` AND date_id LIKE ?`;
+            params.push(`${year}`);
         }
 
-        query+=`ORDER BY date_id DESC`;
+        query+=` ORDER BY date_id DESC`;
 
         const notes=await db.all(query, params);
 
@@ -93,7 +93,7 @@ export const saveDailyPage = async (req, res) => {
 
         db=await openDB();
 
-        const existingNote = db.get(
+        const existingNote =  await db.get(
             `SELECT id FROM notes WHERE user_id = ? and date_id=?`,
             [userId, dateId]
         );
@@ -101,7 +101,7 @@ export const saveDailyPage = async (req, res) => {
         if(existingNote) {
             await db.run(
                 'UPDATE notes SET title = ?, content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
-                [finalTitle, content, userId]
+                [finalTitle, content, existingNote.id]
             );
             res.json({message: "Page Updated!"});
         }
@@ -114,7 +114,7 @@ export const saveDailyPage = async (req, res) => {
             res.status(201).json({message: "Page created"});
         }
     } catch (err) {
-        console.error("Save Error:", error);
+        console.error("Save Error:", err);
         res.status(500).json({ error: "Internal Server Error" });
     } finally {
         if (db) await db.close();
